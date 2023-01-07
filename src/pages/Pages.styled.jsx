@@ -17,3 +17,10 @@ export const Title = styled.h2`
   font-size: 24px;
   font-weight: 700;
 `;
+export const Text = styled.p`
+  text-align: center;
+  padding: 10px;
+  color: #0b118f;
+  font-size: 20px;
+  font-weight: 700;
+`;
