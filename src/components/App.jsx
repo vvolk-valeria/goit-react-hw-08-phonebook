@@ -1,37 +1,53 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import { Container, Title } from './App.styled';
-import { selectIsLoading, selectError } from '../redux/selectors';
-import { fetchContacts } from '../redux/operations';
-import { Loader } from './Loader/Loader';
-import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { RegisterPage } from '../pages/Register';
+import { LoginPage } from '../pages/Login';
+import { HomePage } from '../pages/Home';
+import { refreshUser } from '../redux/auth/operations';
+import { PhonebookPage } from '../pages/Phonebook';
+import { useAuth } from 'hooks/useAuth';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <Container>
-      <Title>Phonebook</Title>
-      <ContactForm />
-
-      <Title>Contacts</Title>
-      <Filter />
-      {isLoading && !error && <Loader />}
-      <ContactList />
-      {error &&
-        toast.error(
-          `Oops, something went wrong! Reload the page or try again later!`
-        )}
-    </Container>
+  return isRefreshing ? (
+    'Fetching user data'
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<PhonebookPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

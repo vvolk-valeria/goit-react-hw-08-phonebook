@@ -9,9 +9,9 @@ import {
   ErrorInfo,
 } from './ContactForm.styled';
 
-import { selectContacts } from '../../redux/selectors';
+import { selectContacts } from '../../redux/contacts/selectors';
 import toast, { Toaster } from 'react-hot-toast';
-import { addContact } from '../../redux/operations';
+import { addContact } from '../../redux/contacts/operations';
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -75,7 +75,7 @@ export const ContactForm = () => {
             required
           />
           <FormError name="name" component="div" />
-          <Label htmlFor="number">Number</Label>
+          <Label htmlFor="number">Phone Number</Label>
           <Input
             type="tel"
             name="number"
