@@ -10,7 +10,7 @@ import { fetchContacts } from '../redux/contacts/operations';
 import { Loader } from '../components/Loader/Loader';
 import toast from 'react-hot-toast';
 
-export const PhonebookPage = () => {
+const PhonebookPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -35,3 +35,5 @@ export const PhonebookPage = () => {
     </Container>
   );
 };
+
+export default PhonebookPage;

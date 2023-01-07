@@ -1,4 +1,5 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
+//import { useSelector } from 'react-redux';
 import {
   FormContainer,
   Label,
@@ -7,10 +8,13 @@ import {
 } from './RegisterForm.styled';
 import { register } from '../../redux/auth/operations';
 import { Box } from '../../Box';
+//import { selectError } from "../../redux/auth/selectors";
+//import toast from 'react-hot-toast';
 
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  // const error = useSelector(selectError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,8 +48,11 @@ export const RegisterForm = () => {
         </Label>
         <Input type="password" name="password" />
         <Btn type="submit">Log In</Btn>
-        </Box>
-    </FormContainer>
+        </Box> 
+      </FormContainer>
+      {/* {error && toast.error(
+          `Oops, email or password does not meet the requirements!`
+        )} */}
    </>
   );
 };

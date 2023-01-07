@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {
   FormContainer,
   Label,
@@ -6,12 +6,14 @@ import {
   Input,
 } from './LoginForm.styled';
 import { logIn } from '../../redux/auth/operations';
+import { selectError } from "../../redux/auth/selectors";
 import { Box } from '../../Box';
-
+import toast from 'react-hot-toast';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-
+  const error = useSelector(selectError);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -38,7 +40,10 @@ export const LoginForm = () => {
         <Input type="password" name="password" />
           <Btn type="submit">Log In</Btn>
           </Box>
-    </FormContainer>
+      </FormContainer>
+      {error && toast.error(
+          `Oops, email or password does not meet the requirements!`
+        )}
   </>
   );
 };

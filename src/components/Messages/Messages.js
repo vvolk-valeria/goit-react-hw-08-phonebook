@@ -2,7 +2,7 @@ import {Container, Text,TextError } from "./Messages.styled";
 
 export const MessageNoContacts = () => {
     return <Container>
-        <Text>No contacts yet.</Text>
+        <Text>No contacts.</Text>
     </Container>
 };
 

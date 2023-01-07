@@ -34,7 +34,6 @@ export const ContactList = () => {
             <Btn type="button" onClick={() => dispatch(deleteContact(item.id))}>
               Delete
             </Btn>
-            {console.log('item.id', item.id)}
           </Item>
         );
       })}
