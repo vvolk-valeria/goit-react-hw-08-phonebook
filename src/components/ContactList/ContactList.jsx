@@ -1,13 +1,12 @@
-import { ContainerList, Item, Btn } from './ContactList.styled';
+import { ContainerList } from './ContactList.styled';
 import { selectContacts, selectError } from '../../redux/contacts/selectors';
 import { selectFilter } from '../../redux/filter/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
+import { useSelector } from 'react-redux';
 import { MessageError, MessageNoContacts } from '../Messages/Messages';
 import toast from 'react-hot-toast';
+import { ContactItem } from '../ContactItem/ContactItem';
 
 export const ContactList = () => {
-  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const error = useSelector(selectError);
@@ -27,15 +26,7 @@ export const ContactList = () => {
     <ContainerList>
       {items.length === 0 && !error && <MessageNoContacts />}
       {items.map(item => {
-        return (
-          <Item key={item.id}>
-            <p>{item.name}</p>
-            <span>{item.phone}</span>
-            <Btn type="button" onClick={() => dispatch(deleteContact(item.id))}>
-              Delete
-            </Btn>
-          </Item>
-        );
+        return <ContactItem key={item.id} item={item} />;
       })}
       {error && <MessageError />}
     </ContainerList>

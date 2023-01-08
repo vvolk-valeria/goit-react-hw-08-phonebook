@@ -10,7 +10,7 @@ import {
 } from './ContactForm.styled';
 
 import { selectContacts } from '../../redux/contacts/selectors';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { addContact } from '../../redux/contacts/operations';
 
 const schema = yup.object().shape({
@@ -55,6 +55,7 @@ export const ContactForm = () => {
     };
 
     dispatch(addContact(newContact));
+    toast.success(`${ContactValue} is added to the phonebook.`);
     resetForm();
   };
 
@@ -87,7 +88,6 @@ export const ContactForm = () => {
           <Btn type="submit">Add contact</Btn>
         </FormContainer>
       </Formik>
-      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

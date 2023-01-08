@@ -20,6 +20,7 @@ const PhonebookPage = () => {
   }, [dispatch]);
 
   return (
+    <>
     <Container>
       <Title>Phonebook</Title>
       <ContactForm />
@@ -32,7 +33,8 @@ const PhonebookPage = () => {
         toast.error(
           `Oops, something went wrong! Reload the page or try again later!`
         )}
-    </Container>
+      </Container>
+    </>
   );
 };
 
